@@ -44,17 +44,17 @@ ADMINS       = (
     ('Samuel Clay', 'samuel@newsblur.com'),
 )
 
-SERVER_NAME  = 'newsblur'
+SERVER_NAME  = 'amitove'
 SERVER_EMAIL = 'server@newsblur.com'
 HELLO_EMAIL  = 'hello@newsblur.com'
-NEWSBLUR_URL = 'http://www.newsblur.com'
+NEWSBLUR_URL = 'http://www.amitove.com'
 SECRET_KEY            = 'YOUR_SECRET_KEY'
 
 # ===================
 # = Global Settings =
 # ===================
 
-DEBUG                 = False
+DEBUG                 = True
 TEST_DEBUG            = False
 SEND_BROKEN_LINK_EMAILS = False
 DEBUG_QUERIES         = False
@@ -244,9 +244,9 @@ APPEND_SLASH            = False
 SOUTH_TESTS_MIGRATE     = False
 SESSION_ENGINE          = 'redis_sessions.session'
 TEST_RUNNER             = "utils.testrunner.TestRunner"
-SESSION_COOKIE_NAME     = 'newsblur_sessionid'
+SESSION_COOKIE_NAME     = 'amitove_sessionid'
 SESSION_COOKIE_AGE      = 60*60*24*365 # 1 year
-SESSION_COOKIE_DOMAIN   = '.newsblur.com'
+SESSION_COOKIE_DOMAIN   = 'amitove.com'
 SENTRY_DSN              = 'https://XXXNEWSBLURXXX@app.getsentry.com/99999999'
 
 if DEBUG:
@@ -319,6 +319,9 @@ ZEBRA_ENABLE_APP = True
 # ==========
 # = Celery =
 # ==========
+SOUTH_MIGRATION_MODULES = {
+        'djcelery': 'djcelery.south_migrations',
+    }
 
 import djcelery
 djcelery.setup_loader()

@@ -6,12 +6,12 @@ import pymongo
 # ===================
 
 ADMINS                = (
-    ('Samuel Clay', 'samuel@newsblur.com'),
+    ('Kevin Su', 'neoszc@163.com'),
 )
 
-SERVER_EMAIL          = 'server@newsblur.com'
-HELLO_EMAIL           = 'hello@newsblur.com'
-NEWSBLUR_URL          = 'http://www.newsblur.com'
+SERVER_EMAIL          = 'neoszc@163.com'
+HELLO_EMAIL           = 'neoszc@163.com'
+NEWSBLUR_URL          = 'http://www.amitove.com'
 SESSION_COOKIE_DOMAIN = '.localhost'
 
 # ===================

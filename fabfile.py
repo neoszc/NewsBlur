@@ -38,8 +38,8 @@ except ImportError:
 env.NEWSBLUR_PATH = "/srv/newsblur"
 env.SECRETS_PATH = "/srv/secrets-newsblur"
 env.VENDOR_PATH   = "/srv/code"
-env.user = 'sclay'
-env.key_filename = os.path.join(env.SECRETS_PATH, 'keys/newsblur.key')
+env.user = 'amitove'
+env.key_filename = os.path.join(env.SECRETS_PATH, 'keys/amitove.key')
 env.connection_attempts = 10
 env.do_ip_to_hostname = {}
 env.colorize_errors = True
@@ -177,7 +177,7 @@ def ec2task():
 
 def ec2():
     env.user = 'ubuntu'
-    env.key_filename = ['/Users/sclay/.ec2/sclay.pem']
+    env.key_filename = ['/Users/amitove/.ec2/amitove.pem']
     assign_digitalocean_roledefs()
 
 def all():
@@ -190,7 +190,7 @@ def all():
 
 def setup_common():
     setup_installs()
-    change_shell()
+    # change_shell()
     setup_user()
     setup_sudoers()
     setup_ulimit()
@@ -390,21 +390,21 @@ def setup_user():
     run('ssh-keygen -t dsa -f ~/.ssh/id_dsa -N ""')
     run('touch ~/.ssh/authorized_keys')
     put("~/.ssh/id_dsa.pub", "authorized_keys")
-    run("echo \"\n\" >> ~sclay/.ssh/authorized_keys")
-    run('echo `cat authorized_keys` >> ~sclay/.ssh/authorized_keys')
+    run("echo \"\n\" >> ~amitove/.ssh/authorized_keys")
+    run('echo `cat authorized_keys` >> ~amitove/.ssh/authorized_keys')
     run('rm authorized_keys')
 
 def copy_ssh_keys():
-    put(os.path.join(env.SECRETS_PATH, 'keys/newsblur.key.pub'), "local_keys")
-    run("echo \"\n\" >> ~sclay/.ssh/authorized_keys")
-    run("echo `cat local_keys` >> ~sclay/.ssh/authorized_keys")
+    put(os.path.join(env.SECRETS_PATH, 'keys/amitove.key.pub'), "local_keys")
+    run("echo \"\n\" >> ~amitove/.ssh/authorized_keys")
+    run("echo `cat local_keys` >> ~amitove/.ssh/authorized_keys")
     run("rm local_keys")
 
 def setup_repo():
     sudo('mkdir -p /srv')
     sudo('chown -R %s.%s /srv' % (env.user, env.user))
-    with settings(warn_only=True):
-        run('git clone https://github.com/samuelclay/NewsBlur.git %s' % env.NEWSBLUR_PATH)
+    #with settings(warn_only=True):
+    #    run('git clone https://github.com/samuelclay/NewsBlur.git %s' % env.NEWSBLUR_PATH)
     with settings(warn_only=True):
         sudo('ln -sfn /srv/code /home/%s/code' % env.user)
         sudo('ln -sfn /srv/newsblur /home/%s/newsblur' % env.user)
@@ -640,7 +640,7 @@ def setup_logrotate(clear=True):
     sudo('chown root.root /etc/logrotate.d/{newsblur,mongodb,nginx}')
     sudo('chmod 644 /etc/logrotate.d/{newsblur,mongodb,nginx}')
     with settings(warn_only=True):
-        sudo('chown sclay.sclay /srv/newsblur/logs/*.log')
+        sudo('chown amitove.amitove /srv/newsblur/logs/*.log')
     sudo('logrotate -f /etc/logrotate.d/newsblur')
     sudo('logrotate -f /etc/logrotate.d/nginx')
     sudo('logrotate -f /etc/logrotate.d/mongodb')
@@ -672,8 +672,8 @@ def setup_syncookies():
     sudo('sudo /sbin/sysctl -w net.ipv4.tcp_syncookies=1')
 
 def setup_sudoers(user=None):
-    sudo('echo "%s ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/sclay' % (user or env.user))
-    sudo('chmod 0440 /etc/sudoers.d/sclay')
+    sudo('echo "%s ALL=(ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/amitove' % (user or env.user))
+    sudo('chmod 0440 /etc/sudoers.d/amitove')
 
 def setup_nginx():
     NGINX_VERSION = '1.6.2'
@@ -699,7 +699,7 @@ def config_nginx():
     sudo("chmod 0755 /etc/init.d/nginx")
     sudo("/usr/sbin/update-rc.d -f nginx defaults")
     sudo("/etc/init.d/nginx restart")
-    copy_certificates()
+    # copy_certificates()
 
 # ===============
 # = Setup - App =
@@ -814,9 +814,9 @@ def setup_haproxy(debug=False):
         put(os.path.join(env.SECRETS_PATH, 'configs/haproxy.conf'), 
             '/etc/haproxy/haproxy.cfg', use_sudo=True)
     sudo('echo "ENABLED=1" | sudo tee /etc/default/haproxy')
-    cert_path = "%s/config/certificates" % env.NEWSBLUR_PATH
-    run('cat %s/newsblur.com.crt > %s/newsblur.pem' % (cert_path, cert_path))
-    run('cat %s/newsblur.com.key >> %s/newsblur.pem' % (cert_path, cert_path))
+    #cert_path = "%s/config/certificates" % env.NEWSBLUR_PATH
+    #run('cat %s/newsblur.com.crt > %s/newsblur.pem' % (cert_path, cert_path))
+    #run('cat %s/newsblur.com.key >> %s/newsblur.pem' % (cert_path, cert_path))
     put('config/haproxy_rsyslog.conf', '/etc/rsyslog.d/49-haproxy.conf', use_sudo=True)
     sudo('restart rsyslog')
     sudo('update-rc.d -f haproxy defaults')
@@ -1094,20 +1094,20 @@ def setup_munin():
         sudo('/etc/init.d/spawn_fcgi_munin_html start')
 
 def copy_munin_data(from_server):
-    put(os.path.join(env.SECRETS_PATH, 'keys/newsblur.key'), '~/.ssh/newsblur.key')
-    put(os.path.join(env.SECRETS_PATH, 'keys/newsblur.key.pub'), '~/.ssh/newsblur.key.pub')
-    run('chmod 600 ~/.ssh/newsblur*')
+    put(os.path.join(env.SECRETS_PATH, 'keys/amitove.key'), '~/.ssh/amitove.key')
+    put(os.path.join(env.SECRETS_PATH, 'keys/amitove.key.pub'), '~/.ssh/amitove.key.pub')
+    run('chmod 600 ~/.ssh/amitove*')
 
     put("config/munin.nginx.conf", "/usr/local/nginx/conf/sites-enabled/munin.conf", use_sudo=True)
     sudo('/etc/init.d/nginx reload')
 
-    run("rsync -az -e \"ssh -i /home/sclay/.ssh/newsblur.key\" --stats --progress %s:/var/lib/munin/ /srv/munin" % from_server)
+    run("rsync -az -e \"ssh -i /home/amitove/.ssh/amitove.key\" --stats --progress %s:/var/lib/munin/ /srv/munin" % from_server)
     sudo('rm -fr /var/lib/bak-munin')
     sudo("mv /var/lib/munin /var/lib/bak-munin")
     sudo("mv /srv/munin /var/lib/")
     sudo("chown munin.munin -R /var/lib/munin")
 
-    run("sudo rsync -az -e \"ssh -i /home/sclay/.ssh/newsblur.key\" --stats --progress %s:/etc/munin/ /srv/munin-etc" % from_server)
+    run("sudo rsync -az -e \"ssh -i /home/amitove/.ssh/amitove.key\" --stats --progress %s:/etc/munin/ /srv/munin-etc" % from_server)
     sudo("mv /srv/munin-etc /etc/munin")
     sudo("chown munin.munin -R /etc/munin")
 
@@ -1318,7 +1318,7 @@ def do_name(name):
     
 def add_user_to_do():
     env.user = "root"
-    repo_user = "sclay"
+    repo_user = "amitove"
     with settings(warn_only=True):
         run('useradd -m %s' % (repo_user))
         setup_sudoers("%s" % (repo_user))
@@ -1370,7 +1370,8 @@ def setup_ec2():
 @parallel
 def pull():
     with virtualenv():
-        run('git pull')
+        #run('git pull')
+        print "Didn't need to git pull for the source"
 
 def pre_deploy():
     compress_assets(bundle=True)
@@ -1412,12 +1413,12 @@ def kill_gunicorn():
 @parallel
 def deploy_code(copy_assets=False, rebuild=False, fast=False, reload=False):
     with virtualenv():
-        run('git pull')
+        #run('git pull')
         run('mkdir -p static')
         if rebuild:
             run('rm -fr static/*')
-        if copy_assets:
-            transfer_assets()
+        #if copy_assets:
+        #    transfer_assets()
         
     with virtualenv(), settings(warn_only=True):
         if reload:
@@ -1613,7 +1614,7 @@ def restore_postgres(port=5433):
     # sudo('su postgres -c "createuser -p %s -U newsblur"' % (port,))
     run('dropdb newsblur -p %s -U postgres' % (port,), pty=False)
     run('createdb newsblur -p %s -O newsblur' % (port,), pty=False)
-    run('pg_restore -p %s --role=newsblur --dbname=newsblur /Users/sclay/Documents/backups/backup_postgresql_%s.sql.gz' % (port, backup_date), pty=False)
+    run('pg_restore -p %s --role=newsblur --dbname=newsblur /Users/amitove/Documents/backups/backup_postgresql_%s.sql.gz' % (port, backup_date), pty=False)
 
 def restore_mongo():
     backup_date = '2012-07-24-09-00'
