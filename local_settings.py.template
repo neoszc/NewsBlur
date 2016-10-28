@@ -6,13 +6,13 @@ import pymongo
 # ===================
 
 ADMINS                = (
-    ('Kevin Su', 'neoszc@163.com'),
+    ('Jack SU', 'neoszc@163.com'),
 )
 
 SERVER_EMAIL          = 'neoszc@163.com'
 HELLO_EMAIL           = 'neoszc@163.com'
 NEWSBLUR_URL          = 'http://www.amitove.com'
-SESSION_COOKIE_DOMAIN = '.localhost'
+SESSION_COOKIE_DOMAIN = 'amitove.com'
 
 # ===================
 # = Global Settings =
@@ -75,9 +75,9 @@ YOUTUBE_API_KEY = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
 DATABASES = {
     'default': {
         'NAME': 'newsblur',
-        'ENGINE': 'django.db.backends.mysql',
-        'USER': 'newsblur',
-        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
         'HOST': '127.0.0.1',
         'OPTIONS': {
             "autocommit": True,
