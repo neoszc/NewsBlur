@@ -236,15 +236,6 @@
                     <td>Wait in a queue</td>
                     <td class="NB-last">Immediate</td>
                 </tr>
-                <tr>
-                    <td class="NB-bold">
-                        <div class="NB-welcome-premium-bullet NB-9"></div>
-                        Feed poor Shiloh
-                    </td>
-                    <td>She goes hungry</td>
-                    <td class="NB-last">
-                        <img src="{{ MEDIA_URL }}img/reader/shiloh.jpg" class="NB-shiloh">Home cooked meals of green beans, sweet potatoes, carrots, and brown rice</td>
-                </tr>
             </table>
         </div>
     </div>
@@ -285,21 +276,7 @@
 
 {% block footer %}
 
-    <footer class="NB-welcome-footer">
-        <div class="NB-welcome-footer-content NB-inner">
-            <div class="NB-footer-icons">
-                <a href="http://github.com/samuelclay" title="GitHub"><img src="{{ MEDIA_URL }}img/welcome/github_favicon.png"></a>
-                <a href="http://twitter.com/newsblur" title="Twitter"><img src="{{ MEDIA_URL }}img/welcome/twitter_favicon.png"></a>
-            </div>
-            <a href="{% url "index" %}"><img src="{{ MEDIA_URL }}/img/logo_newsblur_blur.png" style="height: 32px;" class="NB-footer-logo" title="NewsBlur" alt="NewsBlur" /></a>
-            is built in New York City and San Francisco by 
-            <a href="http://twitter.com/samuelclay" class="NB-splash-link">
-                <img src="https://pbs.twimg.com/profile_images/1382021023/Campeche_Steps_reasonably_small.jpg" class="NB-twitter-avatar">
-                @samuelclay
-            </a>
-        </div>
-        
+    <footer class="NB-welcome-footer">        
         {% render_footer "welcome" %}
-        
     </footer>
 {% endblock footer %}
