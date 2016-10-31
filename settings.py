@@ -54,12 +54,12 @@ SECRET_KEY            = 'YOUR_SECRET_KEY'
 # = Global Settings =
 # ===================
 
-DEBUG                 = True
+DEBUG                 = False
 TEST_DEBUG            = False
 SEND_BROKEN_LINK_EMAILS = False
 DEBUG_QUERIES         = False
 MANAGERS              = ADMINS
-PAYPAL_RECEIVER_EMAIL = 'samuel@ofbrooklyn.com'
+PAYPAL_RECEIVER_EMAIL = 'amitove@amitove.com'
 TIME_ZONE             = 'GMT'
 LANGUAGE_CODE         = 'en-us'
 SITE_ID               = 1
